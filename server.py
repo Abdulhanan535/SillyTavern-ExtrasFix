@@ -1062,7 +1062,7 @@ if "sd" in modules and not sd_use_remote:
     sd_device = torch.device(sd_device_string)
     sd_torch_dtype = torch.float32 if sd_device_string != cuda_device else torch.float16
     sd_pipe = StableDiffusionPipeline.from_pretrained(
-        sd_model, custom_pipeline="lpw_stable_diffusion", torch_dtype=sd_torch_dtype
+        sd_model, custom_pipeline="AlanB/lpw_stable_diffusion_update", torch_dtype=sd_torch_dtype
     ).to(sd_device)
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
     sd_pipe.enable_attention_slicing()
