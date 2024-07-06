@@ -23,7 +23,10 @@ vosk
 sounddevice
 openai-whisper
 selenium
-transformers scipy ftfy accelerate
+transformers
+scipy
+ftfy
+accelerate
 huggingface-hub
 fastapi
 wxpython; sys_platform == 'win32' or sys_platform == 'darwin'
