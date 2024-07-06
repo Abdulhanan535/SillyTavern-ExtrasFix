@@ -1058,8 +1058,8 @@ if "sd" in modules and not sd_use_remote:
     from diffusers import EulerDiscreteScheduler
 
     print("Initializing Stable Diffusion pipeline...")
-    !pip install diffusers==0.11.1
-    !pip install transformers scipy ftfy accelerate
+    %pip install diffusers==0.11.1
+    %pip install transformers scipy ftfy accelerate
     sd_device_string = cuda_device if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
     sd_device = torch.device(sd_device_string)
     sd_torch_dtype = torch.float32 if sd_device_string != cuda_device else torch.float16
