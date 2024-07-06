@@ -13,7 +13,7 @@ torchvision
 torchaudio
 accelerate
 transformers
-diffusers==0.11.1
+diffusers
 silero-api-server
 chromadb
 sentence_transformers
@@ -24,9 +24,6 @@ sounddevice
 openai-whisper
 selenium
 transformers
-scipy
-ftfy
-accelerate
 huggingface-hub
 fastapi
 wxpython; sys_platform == 'win32' or sys_platform == 'darwin'
