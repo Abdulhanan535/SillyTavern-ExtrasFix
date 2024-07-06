@@ -1067,7 +1067,7 @@ if "sd" in modules and not sd_use_remote:
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
     sd_pipe.enable_attention_slicing()
     # pipe.scheduler = KarrasVeScheduler.from_config(pipe.scheduler.config)
-    sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
+    sd_pipe.scheduler = EulerDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
     )
 elif "sd" in modules and sd_use_remote:
