@@ -1062,11 +1062,12 @@ if "sd" in modules and not sd_use_remote:
     sd_device = torch.device(sd_device_string)
     sd_torch_dtype = torch.float32 if sd_device_string != cuda_device else torch.float16
     sd_pipe = StableDiffusionPipeline.from_pretrained(
-        sd_model, torch_dtype=sd_torch_dtype).to(sd_device)
+        sd_model, custom_pipeline="AlanB/lpw_stable_diffusion_update", torch_dtype=sd_torch_dtype
+    ).to(sd_device)
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
     sd_pipe.enable_attention_slicing()
     # pipe.scheduler = KarrasVeScheduler.from_config(pipe.scheduler.config)
-    sd_pipe.scheduler = EulerDiscreteScheduler.from_config(
+    sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
     )
 elif "sd" in modules and sd_use_remote:
