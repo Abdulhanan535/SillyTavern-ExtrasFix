@@ -1255,9 +1255,7 @@ else:
     print(f"{Fore.YELLOW}{Style.BRIGHT}No API key given because you are running locally.{Style.RESET_ALL}")
 
 if args.share:
-    from pyngrok import ngrok
-    Tunnel = ngrok.connect(port)
-    print(f"Your Ngrok Tunnel is Ready : {Tunnel}")
+    print(f"Your Ngrok Tunnel is Ready")
 
 ignore_auth.append(api_tts_play_sample)
 ignore_auth.append(api_talkinghead_result_feed)
