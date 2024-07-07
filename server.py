@@ -1256,9 +1256,8 @@ else:
 
 if args.share:
     from pyngrok import ngrok
-    if nparams > 1:
-        Tunnel = ngrok.connect(port)
-        print(f"Your Ngrok Tunnel is Ready : {Tunnel}")
+    Tunnel = ngrok.connect(port)
+    print(f"Your Ngrok Tunnel is Ready : {Tunnel}")
 
 ignore_auth.append(api_tts_play_sample)
 ignore_auth.append(api_talkinghead_result_feed)
