@@ -1256,7 +1256,7 @@ else:
 
 if args.share:
     from pyngrok import ngrok
-    !ngrok authtoken 2gAo4R6fC0ND3YnulbgncrYrvLx_6E28TkGZZJTeT58MJ6GQY
+    ngrok authtoken 2gAo4R6fC0ND3YnulbgncrYrvLx_6E28TkGZZJTeT58MJ6GQY
     if nparams > 1:
         Tunnel = ngrok.connect(port)
         print(f"Your Ngrok Tunnel is Ready : {Tunnel}")
