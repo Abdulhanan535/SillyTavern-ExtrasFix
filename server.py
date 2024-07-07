@@ -1255,17 +1255,11 @@ else:
     print(f"{Fore.YELLOW}{Style.BRIGHT}No API key given because you are running locally.{Style.RESET_ALL}")
 
 if args.share:
-    from flask_cloudflared import _run_cloudflared
-    import inspect
-
-    sig = inspect.signature(_run_cloudflared)
-    nparams = sum(1 for param in sig.parameters.values() if param.kind == param.POSITIONAL_OR_KEYWORD)
+    from pyngrok import ngrok
+    !ngrok authtoken 2gAo4R6fC0ND3YnulbgncrYrvLx_6E28TkGZZJTeT58MJ6GQY
     if nparams > 1:
-        metrics_port = randint(8100, 9000)
-        cloudflare = _run_cloudflared(port, metrics_port)
-    else:
-        cloudflare = _run_cloudflared(port)
-    print(f"{Fore.GREEN}{Style.NORMAL}Running on: {cloudflare}{Style.RESET_ALL}")
+        Tunnel = ngrok.connect(port)
+        print(f"Your Ngrok Tunnel is Ready : {Tunnel}")
 
 ignore_auth.append(api_tts_play_sample)
 ignore_auth.append(api_talkinghead_result_feed)
