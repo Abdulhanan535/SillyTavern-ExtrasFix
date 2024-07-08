@@ -1073,6 +1073,8 @@ if "sd" in modules and not sd_use_remote:
         sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", torch_dtype=sd_torch_dtype, use_safetensors=True).to(sd_device)
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
     sd_pipe.enable_attention_slicing()
+    pipe.enable_vae_slicing()
+    pipe.enable_xformers_memory_efficient_attention()
     # pipe.scheduler = KarrasVeScheduler.from_config(pipe.scheduler.config)
     sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
