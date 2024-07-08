@@ -1054,14 +1054,14 @@ if "summarize" in modules:
     summarization_pipeline = pipeline('summarization', model=summarization_model, device=device_string, torch_dtype=torch_dtype)
 
 if "sd" in modules and not sd_use_remote:
-    from diffusers import DiffusionPipeline
+    from diffusers import StableDiffusionXLPipeline
     from diffusers import EulerDiscreteScheduler
 
     print("Initializing Stable Diffusion pipeline...")
     sd_device_string = cuda_device if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
     sd_device = torch.device(sd_device_string)
     sd_torch_dtype = torch.float32 if sd_device_string != cuda_device else torch.float16
-    sd_pipe = DiffusionPipeline.from_pretrained(
+    sd_pipe = StableDiffusionXLPipeline.from_pretrained(
         sd_model, custom_pipeline="AlanB/lpw_stable_diffusion_update", torch_dtype=sd_torch_dtype
     ).to(sd_device)
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
