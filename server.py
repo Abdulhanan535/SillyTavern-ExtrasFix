@@ -484,7 +484,7 @@ def api_image_models():
 @app.route("/api/image/samplers", methods=["GET"])
 @require_module("sd")
 def api_image_samplers():
-    samplers = ["Euler a"]
+    samplers = ["Euler"]
 
     if sd_use_remote:
         samplers = [sampler["name"] for sampler in sd_remote.get_samplers()]
