@@ -484,7 +484,7 @@ def api_image_models():
 @app.route("/api/image/samplers", methods=["GET"])
 @require_module("sd")
 def api_image_samplers():
-    samplers = ["Euler a"]
+    samplers = ["Euler Ancestral"]
 
     if sd_use_remote:
         samplers = [sampler["name"] for sampler in sd_remote.get_samplers()]
@@ -1058,7 +1058,7 @@ if "summarize" in modules:
 
 if "sd" in modules and not sd_use_remote:
     from diffusers import StableDiffusionXLPipeline
-    from diffusers import EulerDiscreteScheduler
+    from diffusers import EulerAncestralDiscreteScheduler
     from diffusers import AutoencoderKL
 
     print("Initializing Stable Diffusion XL pipeline...")
@@ -1074,7 +1074,7 @@ if "sd" in modules and not sd_use_remote:
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
     sd_pipe.enable_attention_slicing()
     # pipe.scheduler = KarrasVeScheduler.from_config(pipe.scheduler.config)
-    sd_pipe.scheduler = EulerDiscreteScheduler.from_config(
+    sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
     )
 elif "sd" in modules and sd_use_remote:
