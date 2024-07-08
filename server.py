@@ -40,7 +40,7 @@ from constants import (DEFAULT_SUMMARIZATION_MODEL,
                        DEFAULT_CLASSIFICATION_MODEL,
                        DEFAULT_CAPTIONING_MODEL,
                        DEFAULT_EMBEDDING_MODEL,
-                       DEFAULT_SD_MODEL, DEFAULT_REMOTE_SD_HOST, DEFAULT_REMOTE_SD_PORT, PROMPT_PREFIX, NEGATIVE_PROMPT,
+                       DEFAULT_SD_MODEL,DEFAULT_SD_VAE, DEFAULT_REMOTE_SD_HOST, DEFAULT_REMOTE_SD_PORT, PROMPT_PREFIX, NEGATIVE_PROMPT,
                        DEFAULT_CUDA_DEVICE,
                        DEFAULT_CHROMA_PORT)
 
@@ -358,6 +358,7 @@ sd_use_remote = None  # populated when the module is loaded
 sd_pipe = None
 sd_remote = None
 sd_model = None
+sd_vae = None
 
 def _generate_image(data: dict) -> Image:
     prompt = normalize_string(f'{data["prompt_prefix"]} {data["prompt"]}')
@@ -940,6 +941,7 @@ parser.add_argument("--stt-whisper-model-path", help="Load a custom vosk speech-
 
 local_sd = parser.add_argument_group("sd-local")
 local_sd.add_argument("--sd-model", help="Load a custom SD image generation model")
+local_sd.add_argument("--sd-vae", help="Load a custom SD Vae model")
 local_sd.add_argument("--sd-cpu", help="Force the SD pipeline to run on the CPU", action="store_true")
 
 remote_sd = parser.add_argument_group("sd-remote")
@@ -983,6 +985,7 @@ embedding_model = args.embedding_model if args.embedding_model else DEFAULT_EMBE
 
 sd_use_remote = False if args.sd_model else True
 sd_model = args.sd_model if args.sd_model else DEFAULT_SD_MODEL
+sd_vae = args.sd_vae if args.sd_vae else DEFAULT_SD_VAE
 sd_remote_host = args.sd_remote_host if args.sd_remote_host else DEFAULT_REMOTE_SD_HOST
 sd_remote_port = args.sd_remote_port if args.sd_remote_port else DEFAULT_REMOTE_SD_PORT
 sd_remote_ssl = args.sd_remote_ssl
@@ -1056,13 +1059,18 @@ if "summarize" in modules:
 if "sd" in modules and not sd_use_remote:
     from diffusers import DiffusionPipeline
     from diffusers import EulerDiscreteScheduler
+    from diffusers import AutoencoderKL
 
     print("Initializing Stable Diffusion pipeline...")
     sd_device_string = cuda_device if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
     sd_device = torch.device(sd_device_string)
     sd_torch_dtype = torch.float32 if sd_device_string != cuda_device else torch.float16
-    sd_pipe = DiffusionPipeline.from_pretrained(
-        sd_model, custom_pipeline="AlanB/lpw_stable_diffusion_update", torch_dtype=sd_torch_dtype, use_safetensors=True).to(sd_device)
+    if args.sd_vae :
+        vae = AutoencoderKL.from_pretrained(sd_vae,torch_dtype=torch.float16)
+        print("Loading With Custom Vae")
+        sd_pipe = DiffusionPipeline.from_pretrained(sd_model, vae=vae, custom_pipeline="AlanB/lpw_stable_diffusion_update", torch_dtype=sd_torch_dtype, use_safetensors=True).to(sd_device)
+    else :
+        sd_pipe = DiffusionPipeline.from_pretrained(sd_model, custom_pipeline="AlanB/lpw_stable_diffusion_update", torch_dtype=sd_torch_dtype, use_safetensors=True).to(sd_device)
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
     sd_pipe.enable_attention_slicing()
     # pipe.scheduler = KarrasVeScheduler.from_config(pipe.scheduler.config)
