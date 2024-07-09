@@ -1075,6 +1075,7 @@ if "sd" in modules and not sd_use_remote:
     sd_pipe.enable_attention_slicing()
     sd_pipe.enable_vae_slicing()
     sd_pipe.enable_xformers_memory_efficient_attention()
+    sd_pipe.load_textual_inversion("embed/EasyNegative", weight_name="EasyNegative.safetensors", token="EasyNegative")
     # pipe.scheduler = KarrasVeScheduler.from_config(pipe.scheduler.config)
     sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
