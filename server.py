@@ -389,7 +389,6 @@ def _generate_image(data: dict) -> Image:
             prompt=prompt,
             negative_prompt=data["negative_prompt"],
             num_inference_steps=data["steps"],
-            clip_skip=2,
             guidance_scale=data["scale"],
             width=data["width"],
             height=data["height"],
