@@ -1,5 +1,4 @@
 flask
-flask-cloudflared
 flask-cors
 flask-compress
 markdown
@@ -8,21 +7,11 @@ Pillow==9.5.0
 colorama
 webuiapi
 --extra-index-url https://download.pytorch.org/whl/cu118
-torch
-torchvision
-torchaudio
 accelerate
 transformers
 diffusers
-silero-api-server
-chromadb
-sentence_transformers
-edge-tts
 matplotlib
 vosk
-sounddevice
-openai-whisper
-selenium
 huggingface-hub
 fastapi
 wxpython; sys_platform == 'win32' or sys_platform == 'darwin'
