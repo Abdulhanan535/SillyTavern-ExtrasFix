@@ -1071,12 +1071,12 @@ if "sd" in modules and not sd_use_remote:
             vae = AutoencoderKL.from_pretrained(sd_vae,torch_dtype=torch.float16)
             print("Loading With Custom Vae")
             print("Loading With Low Vram")
-            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, vae=vae, custom_pipeline="lpw_stable_diffusion", torch_dtype=torch.float16, use_safetensors=True)
+            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, vae=vae, custom_pipeline="uooogh/lpw_stable_diffusion_xl", torch_dtype=torch.float16, use_safetensors=True)
             sd_pipe.enable_sequential_cpu_offload()
             sd_pipe.enable_vae_tiling()
             sd_pipe.enable_vae_slicing()
         else :
-            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="lpw_stable_diffusion", torch_dtype=torch.float16, use_safetensors=True)
+            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", torch_dtype=torch.float16, use_safetensors=True)
             print("Loading With Low Vram")
             sd_pipe.enable_sequential_cpu_offload()
             sd_pipe.enable_vae_tiling()
@@ -1085,9 +1085,9 @@ if "sd" in modules and not sd_use_remote:
         if args.sd_vae :
             vae = AutoencoderKL.from_pretrained(sd_vae,torch_dtype=torch.float16)
             print("Loading With Custom Vae")
-            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, vae=vae, custom_pipeline="lpw_stable_diffusion", torch_dtype=torch.float16, use_safetensors=True).to(sd_device)
+            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, vae=vae, custom_pipeline="uooogh/lpw_stable_diffusion_xl", torch_dtype=torch.float16, use_safetensors=True).to(sd_device)
         else :
-            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="lpw_stable_diffusion", torch_dtype=torch.float16, use_safetensors=True).to(sd_device)
+            sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", torch_dtype=torch.float16, use_safetensors=True).to(sd_device)
     
 
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
