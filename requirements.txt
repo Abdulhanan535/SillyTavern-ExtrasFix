@@ -6,9 +6,7 @@ black
 Pillow==9.5.0
 accelerate
 diffusers
---extra-index-url https://download.pytorch.org/whl/cu118
-torch
-torchvision
+torchvision==0.18.1
 matplotlib
 huggingface-hub
 webuiapi
