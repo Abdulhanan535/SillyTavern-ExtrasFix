@@ -1083,8 +1083,6 @@ if "sd" in modules and not sd_use_remote:
             sd_pipe.enable_vae_slicing()
     else :
         if args.sd_vae :
-            sd_pipe.load_textual_inversion("casque/Stable_Yogis_PDXL_Positives",weight_name="Stable_Yogis_PDXL_Positives.safetensors",token="Stable_Yogis_PDXL_Positives")
-            sd_pipe.load_textual_inversion("casque/Stable_Yogis_PDXL_Negatives-neg",weight_name="Stable_Yogis_PDXL_Negatives-neg.safetensors",token="Stable_Yogis_PDXL_Negatives-neg")
             vae = AutoencoderKL.from_pretrained(sd_vae,torch_dtype=torch.float16)
             print("Loading With Custom Vae")
             sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, vae=vae, custom_pipeline="uooogh/lpw_stable_diffusion_xl", torch_dtype=torch.float16, use_safetensors=True).to(sd_device)
@@ -1098,6 +1096,8 @@ if "sd" in modules and not sd_use_remote:
     sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
     )
+    sd_pipe.load_textual_inversion("casque/Stable_Yogis_PDXL_Positives",weight_name="Stable_Yogis_PDXL_Positives.safetensors",token="Stable_Yogis_PDXL_Positives")
+    sd_pipe.load_textual_inversion("casque/Stable_Yogis_PDXL_Negatives-neg",weight_name="Stable_Yogis_PDXL_Negatives-neg.safetensors",token="Stable_Yogis_PDXL_Negatives-neg")
 elif "sd" in modules and sd_use_remote:
     print("Initializing Stable Diffusion connection")
     try:
