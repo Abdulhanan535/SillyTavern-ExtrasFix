@@ -1096,8 +1096,6 @@ if "sd" in modules and not sd_use_remote:
     sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
         sd_pipe.scheduler.config
     )
-    sd_pipe.load_textual_inversion("casque/Stable_Yogis_PDXL_Positives",weight_name="Stable_Yogis_PDXL_Positives.safetensors",token="Stable_Yogis_PDXL_Positives")
-    sd_pipe.load_textual_inversion("casque/Stable_Yogis_PDXL_Negatives-neg",weight_name="Stable_Yogis_PDXL_Negatives-neg.safetensors",token="Stable_Yogis_PDXL_Negatives-neg")
 elif "sd" in modules and sd_use_remote:
     print("Initializing Stable Diffusion connection")
     try:
