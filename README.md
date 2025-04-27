@@ -1,8 +1,5 @@
 # SillyTavern - Extras
 ---
-## Extras project is discontinued and won't receive any new updates or modules. The vast majority of modules are available natively in the main SillyTavern application. You may still install and use it but don't expect to get immediate support if you face any issues.
----
-- [Recent news](#recent-news)
 - [What is this](#what-is-this)
 - [How to run](#how-to-run)
 - [Modules](#modules)
@@ -11,15 +8,6 @@
 - [ChromaDB](#chromadb)
 - [API Endpoints](#api-endpoints)
 
-## Recent news
-
-* April 24 2024 - The project is officially discontinued.
-* November 20 2023 - The project is relicensed as AGPLv3 to comply with the rest of ST organization policy. If you have any concerns about that, please raise a discussion in the appropriate channel.
-* November 16 2023 - Requirement files were remade from scratch to simplify the process of local installation.
-  - Removed requirements-complete.txt, please use requirements.txt instead.
-  - Unlocked versions of all requirements unless strictly necessary.
-  - Coqui TTS requirements moved to requirements-coqui.txt.
-* July 25 2023 - Now extras require Python 3.11 to run, some of the new modules will be incompatible with old Python 3.10 installs. To migrate using conda, please remove old environment using `conda remove --name extras --all` and reinstall using the instructions below.
 
 ## What is this
 
