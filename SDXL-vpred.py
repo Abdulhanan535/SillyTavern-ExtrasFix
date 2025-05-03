@@ -1067,7 +1067,7 @@ if "sd" in modules and not sd_use_remote:
     sd_device = torch.device(sd_device_string)
     sd_torch_dtype = torch.float32 if sd_device_string != cuda_device else torch.float16
     if args.lowvram :
-        sd_pipe = StableDiffusionXLPipeline.from_single_file(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", use_safetensors=True, torch_dtype=torch.float16,)
+        sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", use_safetensors=True, torch_dtype=torch.float16,)
         scheduler_args = {"prediction_type": "v_prediction", "rescale_betas_zero_snr": True}
         sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(sd_pipe.scheduler.config, **scheduler_args)
         print("Loading With Low Vram")
@@ -1075,7 +1075,7 @@ if "sd" in modules and not sd_use_remote:
         sd_pipe.enable_vae_tiling()
         sd_pipe.enable_vae_slicing()
     else :
-        sd_pipe = StableDiffusionXLPipeline.from_single_file(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", use_safetensors=True, torch_dtype=torch.float16,)
+        sd_pipe = StableDiffusionXLPipeline.from_pretrained(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", use_safetensors=True, torch_dtype=torch.float16,)
         scheduler_args = {"prediction_type": "v_prediction", "rescale_betas_zero_snr": True}
         sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(sd_pipe.scheduler.config, **scheduler_args)
         sd_pipe.enable_model_cpu_offload()
