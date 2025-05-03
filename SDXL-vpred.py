@@ -1078,6 +1078,7 @@ if "sd" in modules and not sd_use_remote:
         sd_pipe = StableDiffusionXLPipeline.from_single_file(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", use_safetensors=True, torch_dtype=torch.float16,)
         scheduler_args = {"prediction_type": "v_prediction", "rescale_betas_zero_snr": True}
         sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(sd_pipe.scheduler.config, **scheduler_args)
+        sd_pipe.enable_model_cpu_offload()
         sd_pipe.to(sd_device)
 
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
