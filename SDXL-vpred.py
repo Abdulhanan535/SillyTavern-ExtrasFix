@@ -1069,7 +1069,7 @@ if "sd" in modules and not sd_use_remote:
     if args.lowvram :
         sd_pipe = StableDiffusionXLPipeline.from_single_file(sd_model, custom_pipeline="uooogh/lpw_stable_diffusion_xl", use_safetensors=True, torch_dtype=torch.float16,)
         scheduler_args = {"prediction_type": "v_prediction", "rescale_betas_zero_snr": True}
-        sd_pipe.scheduler = EulerDiscreteScheduler.from_config(sd_pipe.scheduler.config, **scheduler_args)
+        sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(sd_pipe.scheduler.config, **scheduler_args)
         print("Loading With Low Vram")
         sd_pipe.enable_sequential_cpu_offload()
         sd_pipe.enable_vae_tiling()
