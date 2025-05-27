@@ -1080,7 +1080,6 @@ if "sd" in modules and not sd_use_remote:
         scheduler_args = {"prediction_type": "v_prediction", "rescale_betas_zero_snr": True}
         sd_pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(sd_pipe.scheduler.config, **scheduler_args)
         sd_pipe.enable_model_cpu_offload()
-        sd_pipe.to(sd_device)
         sd_pipe.enable_xformers_memory_efficient_attention()
 
     sd_pipe.safety_checker = lambda images, clip_input: (images, False)
